@@ -11,7 +11,7 @@
   word-wrap: break-word;
   background-color: $card-bg;
   background-clip: border-box;
-  border: $card-border-width solid $card-border-color;
+  // border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
 
   > hr {
@@ -19,26 +19,16 @@
     margin-left: 0;
   }
 
-  > .list-group {
-    border-top: inherit;
-    border-bottom: inherit;
-
-    &:first-child {
-      border-top-width: 0;
-      @include border-top-radius($card-inner-border-radius);
-    }
-
-    &:last-child  {
-      border-bottom-width: 0;
-      @include border-bottom-radius($card-inner-border-radius);
+  > .list-group:first-child {
+    .list-group-item:first-child {
+      @include border-top-radius($card-border-radius);
     }
   }
 
-  // Due to specificity of the above selector (`.card > .list-group`), we must
-  // use a child selector here to prevent double borders.
-  > .card-header + .list-group,
-  > .list-group + .card-footer {
-    border-top: 0;
+  > .list-group:last-child {
+    .list-group-item:last-child {
+      @include border-bottom-radius($card-border-radius);
+    }
   }
 }
 
@@ -58,7 +48,7 @@
 }
 
 .card-subtitle {
-  margin-top: -$card-spacer-y * .5;
+  margin-top: -$card-spacer-y / 2;
   margin-bottom: 0;
 }
 
@@ -88,36 +78,44 @@
   border-bottom: $card-border-width solid $card-border-color;
 
   &:first-child {
-    @include border-radius($card-inner-border-radius $card-inner-border-radius 0 0);
+    @include border-radius(
+      $card-inner-border-radius $card-inner-border-radius 0 0
+    );
+  }
+
+  + .list-group {
+    .list-group-item:first-child {
+      border-top: 0;
+    }
   }
 }
 
 .card-footer {
   padding: $card-spacer-y $card-spacer-x;
-  color: $card-cap-color;
   background-color: $card-cap-bg;
   border-top: $card-border-width solid $card-border-color;
 
   &:last-child {
-    @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
+    @include border-radius(
+      0 0 $card-inner-border-radius $card-inner-border-radius
+    );
   }
 }
-
 
 //
 // Header navs
 //
 
 .card-header-tabs {
-  margin-right: -$card-spacer-x * .5;
+  margin-right: -$card-spacer-x / 2;
   margin-bottom: -$card-spacer-y;
-  margin-left: -$card-spacer-x * .5;
+  margin-left: -$card-spacer-x / 2;
   border-bottom: 0;
 }
 
 .card-header-pills {
-  margin-right: -$card-spacer-x * .5;
-  margin-left: -$card-spacer-x * .5;
+  margin-right: -$card-spacer-x / 2;
+  margin-left: -$card-spacer-x / 2;
 }
 
 // Card image
@@ -128,7 +126,6 @@
   bottom: 0;
   left: 0;
   padding: $card-img-overlay-padding;
-  @include border-radius($card-inner-border-radius);
 }
 
 .card-img,
@@ -147,7 +144,6 @@
 .card-img-bottom {
   @include border-bottom-radius($card-inner-border-radius);
 }
-
 
 // Card deck
 
@@ -171,7 +167,6 @@
     }
   }
 }
-
 
 //
 // Card groups
@@ -206,12 +201,12 @@
 
           .card-img-top,
           .card-header {
-            // stylelint-disable-next-line property-disallowed-list
+            // stylelint-disable-next-line property-blacklist
             border-top-right-radius: 0;
           }
           .card-img-bottom,
           .card-footer {
-            // stylelint-disable-next-line property-disallowed-list
+            // stylelint-disable-next-line property-blacklist
             border-bottom-right-radius: 0;
           }
         }
@@ -221,12 +216,12 @@
 
           .card-img-top,
           .card-header {
-            // stylelint-disable-next-line property-disallowed-list
+            // stylelint-disable-next-line property-blacklist
             border-top-left-radius: 0;
           }
           .card-img-bottom,
           .card-footer {
-            // stylelint-disable-next-line property-disallowed-list
+            // stylelint-disable-next-line property-blacklist
             border-bottom-left-radius: 0;
           }
         }
@@ -234,7 +229,6 @@
     }
   }
 }
-
 
 //
 // Columns
@@ -258,14 +252,11 @@
   }
 }
 
-
 //
 // Accordion
 //
 
 .accordion {
-  overflow-anchor: none;
-
   > .card {
     overflow: hidden;
 
