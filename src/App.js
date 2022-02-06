@@ -12,7 +12,7 @@ function App() {
           <Route exact path="/" element={<LandingPage/>} />
         </Routes>
       </Router>
-      {/* <p>test1</p> */}
+      
     </div>
   );
 }

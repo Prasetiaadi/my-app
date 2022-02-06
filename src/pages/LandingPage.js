@@ -6,7 +6,6 @@ class LandingPage extends Component {
     return (
       <>
         <Header {...this.props}/>
-        {/* <p>test2</p> */}
       </>
     );
   }
